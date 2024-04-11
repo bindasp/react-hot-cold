@@ -35,9 +35,9 @@ agent any
                 echo "Deploy to staging"
                 sh '''
     
-                docker-compose up
-                docker-compose logs build > log.txt
-                docker-compose logs test >> log.txt
+                docker compose up
+                docker compose logs building > log.txt
+                docker compose logs test >> log.txt
 
                 '''
             }
