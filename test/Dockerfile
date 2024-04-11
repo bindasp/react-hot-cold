@@ -1,3 +1,3 @@
-FROM react-hot-cold:latest
+FROM lab5
 
 CMD CI=TRUE npm test
