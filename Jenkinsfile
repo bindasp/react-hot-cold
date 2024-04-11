@@ -26,7 +26,7 @@ agent any
                 echo "Test stage"
                 sh '''
         
-                docker build -t snake_tester:latest -f ./test/Dockerfile .
+                docker build -t react-hot-cold:latest -f ./test/Dockerfile .
                 '''
             }
         }
