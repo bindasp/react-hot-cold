@@ -16,7 +16,7 @@ agent any
             steps {
                 echo "Build stage"
                 sh '''
-                docker build -t react-hot-cold:latest --build-arg TOKEN=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 -f./build/Dockerfile .
+                docker build -t react-hot-cold:latest  -f./build/Dockerfile .
                 '''
             }
         }
