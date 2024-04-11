@@ -63,7 +63,7 @@ agent any
     post{
         always{
             echo "Archiving artifacts"
-            archiveArtifacts artifacts: 'artifact_*.gar.gz', fingerprint: true
+            archiveArtifacts artifacts: 'artifact_*.tar.gz', fingerprint: true
         }
     }
 }
