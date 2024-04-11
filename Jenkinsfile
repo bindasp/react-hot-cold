@@ -32,7 +32,7 @@ agent any
                 '''
             }
         }
-        stage('Deploy to staging') {
+        stage('Deploy') {
             steps {
                 echo "Deploy to staging"
                 sh '''
