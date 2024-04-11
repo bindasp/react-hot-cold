@@ -6,6 +6,8 @@ services:
     networks:
       - network
     image: lab5
+    volumes:
+      - ./artifacts:/app/build
   test:
     build: ./test
     networks:
