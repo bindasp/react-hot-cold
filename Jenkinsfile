@@ -53,7 +53,7 @@ agent any
                 mkdir artifact_$TIMESTAMP
                 cp log_build.txt artifact_$TIMESTAMP
                 cp log_test.txt artifact_$TIMESTAMP
-                cp build artifact
+                ls
 
                 docker compose down
                 '''
