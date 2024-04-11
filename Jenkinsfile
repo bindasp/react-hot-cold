@@ -36,10 +36,10 @@ agent any
             steps {
                 echo "Deploy to staging"
                 sh '''
-    
+
                 docker compose up
-                docker compose logs building > log.txt
-                docker compose logs test >> log.txt
+                docker compose logs building > log_build.txt
+                docker compose logs test >> log_test.txt
 
                 '''
             }
@@ -50,14 +50,22 @@ agent any
                 echo "Deploy to production"
                 sh '''
                 TIMESTAMP=$(date +%Y%m%d%H%M%S)
-                tar -czf Artifact_$TIMESTAMP.tar.gz ./Snake_files/artifacts ./Snake_files/docker-compose.yml ./Snake_files/tests ./Snake_files/build ./Snake_files/log.txt
-                ls -l
-                cd Snake_files/
+                mkdir artifact_$TIMESTAMP
+                cp log_build.txt artifact_$TIMESTAMP
+                cp log_test.txt artifact_$TIMESTAMP
+                cp build artifact
+
                 docker compose down
                 '''
-                echo "Archiving the artifact..."
-                archiveArtifacts artifacts: 'Artifact_*.tar.gz', fingerprint: true
-            }
+
+
+            } 
+        }
+    }
+    post{
+        always{
+            echo "Archiving artifacts"
+            archiveArtifacts artifacts: 'artifact_*', fingerprint: true
         }
     }
 }
