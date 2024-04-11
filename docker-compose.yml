@@ -2,7 +2,7 @@ version: "3.8"
 
 services:
   build:
-    build: ./build
+    build: ./building
     networks:
       - network
     image: lab5

@@ -16,7 +16,7 @@ agent any
             steps {
                 echo "Build stage"
                 sh '''
-                docker build -t react-hot-cold:latest  -f./build/Dockerfile .
+                docker build -t react-hot-cold:latest  -f./building/Dockerfile .
                 '''
             }
         }

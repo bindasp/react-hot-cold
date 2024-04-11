@@ -1,0 +1,14 @@
+FROM node as lab5
+
+ARG TOKEN
+
+RUN apt-get update
+RUN apt-get upgrade -y 
+RUN apt-get install -y git
+
+RUN git clone https://$TOKEN:x-oauth-basic@github.com/anamika8/react-hot-cold.git
+WORKDIR /react-hot-cold
+
+
+RUN npm i
+RUN npm run build
