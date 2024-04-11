@@ -50,11 +50,9 @@ agent any
                 echo "Deploy to production"
                 sh '''
                 TIMESTAMP=$(date +%Y%m%d%H%M%S)
-                mkdir artifact_$TIMESTAMP
-                cp log_build.txt artifact_$TIMESTAMP
-                cp log_test.txt artifact_$TIMESTAMP
-                
+                tar -czf artifact_$TIMESTAMP.tar.gz log_build.txt log_test.txt
 
+                
                 docker compose down
                 '''
 
@@ -65,7 +63,7 @@ agent any
     post{
         always{
             echo "Archiving artifacts"
-            archiveArtifacts artifacts: 'artifact_*', fingerprint: true
+            archiveArtifacts artifacts: 'artifact_*.gar.gz', fingerprint: true
         }
     }
 }
