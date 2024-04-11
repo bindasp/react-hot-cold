@@ -1,17 +1,20 @@
 pipeline {
 agent any
 
-    environment {
-        GIT_REPO = 'https://https://github.com/bindasp/react-hot-cold'
-        GIT_BRANCH = 'main'
-    }
-
     triggers {
         pollSCM('* * * * *')
     }
 
     stages {
-
+        
+        stage('Pull'){
+            steps{
+                echo "Pulling repo stage"
+                git branch: 'main', credentialsId: 'be5b6235-4b9b-4fbe-b7ef-3bba7d729852', url: 'https://github.com/bindasp/react-hot-cold'
+     
+            }
+        }
+        
         stage('Build') {
             steps {
                 echo "Build stage"
@@ -25,7 +28,6 @@ agent any
             steps {
                 echo "Test stage"
                 sh '''
-        
                 docker build -t react-hot-cold:latest -f ./test/Dockerfile .
                 '''
             }
