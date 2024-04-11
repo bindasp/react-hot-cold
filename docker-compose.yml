@@ -7,7 +7,7 @@ services:
       - network
     image: lab5
     volumes:
-      - ./artifacts:/app/build
+      - ./artifacts:/react-hot-cold/build
   test:
     build: ./test
     networks:
