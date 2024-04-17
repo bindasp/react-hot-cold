@@ -42,7 +42,7 @@ agent any
                 docker compose logs test >> log_test.txt
 
                 docker build -t react-hot-cold-deploy:latest -f ./deploy/Dockerfile .
-                docker run --name deploy_container react-hot-cold-deploy:latest
+                docker run -rm --name deploy_container react-hot-cold-deploy:latest
                 '''
             }
         }
