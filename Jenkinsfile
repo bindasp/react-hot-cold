@@ -38,7 +38,7 @@ agent any
                 sh '''
 
                 docker compose up
-                docker compose logs building > log_build.txt
+                docker compose logs building >> log_build.txt
                 docker compose logs test >> log_test.txt
 
                 docker build -t react-hot-cold-deploy:latest -f ./deploy/Dockerfile .

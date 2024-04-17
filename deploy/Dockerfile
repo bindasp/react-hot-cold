@@ -1,4 +1,4 @@
-FROM lab5
+FROM react-hot-cold:latest
 
 WORKDIR /react-hot-cold
 
