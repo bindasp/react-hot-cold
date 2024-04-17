@@ -28,7 +28,7 @@ agent any
             steps {
                 echo "Test stage"
                 sh '''
-                docker build -t react-hot-cold:latest -f ./test/Dockerfile .
+                docker build -t react-hot-cold-test:latest -f ./test/Dockerfile .
                 '''
             }
         }
@@ -41,6 +41,8 @@ agent any
                 docker compose logs building > log_build.txt
                 docker compose logs test >> log_test.txt
 
+                docker build -t react-hot-cold-deploy:latest -f ./deploy/Dockerfile .
+                docker run --name deploy_container react-hot-cold-deploy:latest
                 '''
             }
         }
