@@ -34,7 +34,7 @@ agent any
         }
         stage('Deploy') {
             steps {
-                echo "Deploy to staging"
+                echo "Deploy stage"
                 sh '''
 
                 docker compose up
@@ -47,15 +47,16 @@ agent any
             }
         }
 
-        stage('Deploy to production') {
+        stage('Publish') {
             steps {
-                echo "Deploy to production"
+                echo "Publish stage"
                 sh '''
                 TIMESTAMP=$(date +%Y%m%d%H%M%S)
                 tar -czf artifact_$TIMESTAMP.tar.gz log_build.txt log_test.txt
 
                 
                 docker compose down
+                docker stop deploy_container
                 '''
 
 
