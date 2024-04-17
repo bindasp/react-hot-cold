@@ -41,6 +41,7 @@ agent any
                 docker compose logs building >> log_build.txt
                 docker compose logs test >> log_test.txt
 
+                docker container prune
                 docker build -t react-hot-cold-deploy:latest -f ./deploy/Dockerfile .
                 docker run --rm --name deploy_container react-hot-cold-deploy:latest
                 '''
