@@ -36,13 +36,13 @@ agent any
             steps {
                 echo "Deploy stage"
                 sh '''
-                
+
                 docker compose up
                 docker compose logs building >> log_build.txt
                 docker compose logs test >> log_test.txt
 
                 docker build -t react-hot-cold-deploy:latest -f ./deploy/Dockerfile .
-                docker run --rm --name deploy_container react-hot-cold-deploy:latest
+                docker run -d --rm --name deploy_container react-hot-cold-deploy:latest
                 '''
             }
         }
@@ -53,12 +53,10 @@ agent any
                 sh '''
                 TIMESTAMP=$(date +%Y%m%d%H%M%S)
                 tar -czf artifact_$TIMESTAMP.tar.gz log_build.txt log_test.txt
-
                 
                 docker compose down
                 docker stop deploy_container
                 '''
-
 
             } 
         }
