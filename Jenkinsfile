@@ -45,6 +45,8 @@ agent any
                 docker compose logs test >> log_test.txt
 
                 docker build -t react-hot-cold-deploy:latest -f ./deploy/Dockerfile .
+
+            
                 docker run -p 3000:3000 -d --rm --name deploy_container react-hot-cold-deploy:latest
                 '''
             }
@@ -58,6 +60,9 @@ agent any
                 tar -czf artifact_$TIMESTAMP.tar.gz log_build.txt log_test.txt
                 
                 docker compose down
+
+                sleep(60)
+
                 docker stop deploy_container
                 '''
 
