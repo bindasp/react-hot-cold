@@ -58,7 +58,7 @@ agent any
                 tar -czf artifact_$TIMESTAMP.tar.gz log_build.txt log_test.txt
                 
                 docker compose down
-                docker stop deploy_container
+                
                 '''
 
             } 
