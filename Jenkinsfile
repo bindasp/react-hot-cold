@@ -61,9 +61,6 @@ agent any
                 
                 docker compose down
 
-                sleep(60)
-
-                docker stop deploy_container
                 '''
 
             } 
