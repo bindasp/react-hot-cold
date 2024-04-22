@@ -21,8 +21,7 @@ agent any
                 sh '''
                 docker build -t react-hot-cold:latest  -f./building/Dockerfile .
                 docker run -d --rm --name build_container react-hot-cold:latest
-                docker cp build_container:/react-hot-cold/build .
-                
+
                 '''
             }
         }
@@ -43,10 +42,9 @@ agent any
                 docker compose up
                 docker compose logs building >> log_build.txt
                 docker compose logs test >> log_test.txt
-
+                docker cp build_container:/react-hot-cold/build .
                 docker build -t react-hot-cold-deploy:latest -f ./deploy/Dockerfile .
 
-            
                 docker run -p 3000:3000 -d --rm --name deploy_container react-hot-cold-deploy:latest
                 '''
             }
@@ -60,7 +58,7 @@ agent any
                 tar -czf artifact_$TIMESTAMP.tar.gz log_build.txt log_test.txt
                 
                 docker compose down
-
+                docker stop deploy_container
                 '''
 
             } 
