@@ -22,6 +22,8 @@ agent any
                 docker build -t react-hot-cold:latest  -f./building/Dockerfile .
                 docker run -d -v ./artefakty:/react-hot-cold/build --name build_container react-hot-cold:latest
                 docker logs build_container > log_build.txt
+                docker container stop build_container
+                docker container rm build_container
                 '''
             }
         }
@@ -63,9 +65,6 @@ agent any
     }
     post{
         always{
-
-            docker container stop build_container
-            docker container rm build_container
 
             echo "Archiving artifacts"
             archiveArtifacts artifacts: 'artifact_*.tar.gz', fingerprint: true
