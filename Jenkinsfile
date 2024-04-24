@@ -69,10 +69,8 @@ agent any
 
             archiveArtifacts artifacts: 'artifact_*.tar.gz', fingerprint: true
             sh '''
-            docker container stop build_container
-            docker container rm build_container
-            docker container stop test_container
-            docker container rm test_container
+            chmod +x cleanup.sh
+            ./cleanup.sh
             '''
         }
     }
