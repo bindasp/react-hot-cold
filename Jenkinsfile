@@ -35,8 +35,8 @@ agent any
                 docker build -t react-hot-cold-test:latest -f ./test/Dockerfile .
                 docker run --name test_container react-hot-cold-test:latest
                 docker logs test_container > log_test.txt
-                docker container stop build_container
-                docker container rm build_container
+                docker container stop test_container
+                docker container rm test_container
                 '''
             }
         }
