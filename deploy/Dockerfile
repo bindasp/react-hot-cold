@@ -1,5 +1,8 @@
-FROM react-hot-cold:latest
+FROM node
 
-WORKDIR /react-hot-cold
+WORKDIR /app
 
-CMD npm run start
+COPY ./artifacts .
+
+RUN npm install -g serve
+CMD serve -s build
