@@ -20,7 +20,7 @@ agent any
                 echo "Build stage"
                 sh '''
                 docker build -t react-hot-cold:latest  -f./building/Dockerfile .
-                docker run -d --rm --name build_container react-hot-cold:latest
+                docker run -v ./artifacts/build:/build -d --rm --name build_container react-hot-cold:latest
                 docker cp build_container:/react-hot-cold/build .
                 '''
             }
@@ -31,6 +31,8 @@ agent any
                 echo "Test stage"
                 sh '''
                 docker build -t react-hot-cold-test:latest -f ./test/Dockerfile .
+                docker compose test
+                docker compose logs test >> log_test.txt
                 '''
             }
         }
@@ -38,13 +40,8 @@ agent any
             steps {
                 echo "Deploy stage"
                 sh '''
-
-                docker compose up
-                docker compose logs building >> log_build.txt
-                docker compose logs test >> log_test.txt
-
+                
                 docker build -t react-hot-cold-deploy:latest -f ./deploy/Dockerfile .
-
                 docker run -p 3000:3000 -d --rm --name deploy_container react-hot-cold-deploy:latest
                 '''
             }
