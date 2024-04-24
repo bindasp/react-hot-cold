@@ -60,7 +60,7 @@ agent any
                 TIMESTAMP=$(date +%Y%m%d%H%M%S)
                 tar -czf artifact_$TIMESTAMP.tar.gz log_build.txt log_test.txt artefakty
                 
-                echo "$DOCKERHUB_CREDENTIALS_PSW" | docker login -u "$DOCKERHUB_CREDENTIALS_USR" --password-stdin
+                echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin
                 NUMBER='''+ env.BUILD_NUMBER +'''
                 docker tag react-hot-cold-deploy:latest bindasp/react-hot-cold:latest
                 docker push bindasp/react-hot-cold:latest
