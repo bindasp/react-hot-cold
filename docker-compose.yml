@@ -7,7 +7,7 @@ services:
       - network
     image: react-hot-cold:latest
     volumes:
-    - ./artefakty/react-hot-cold/build
+    - $(PWD)/artefakty/react-hot-cold/build
   test:
     build: ./test
     networks:
