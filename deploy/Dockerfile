@@ -2,7 +2,7 @@ FROM node
 
 WORKDIR /app
 
-COPY ./artifacts .
+COPY ./artefakty .
 
 RUN npm install -g serve
 CMD serve -s build
