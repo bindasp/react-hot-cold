@@ -51,7 +51,7 @@ agent any
                 echo "Publish stage"
                 sh '''
                 TIMESTAMP=$(date +%Y%m%d%H%M%S)
-                tar -czf artifact_$TIMESTAMP.tar.gz log_build.txt log_test.txt
+                tar -czf artifact_$TIMESTAMP.tar.gz log_build.txt log_test.txt artifacts
                 
                 docker compose down
                 
