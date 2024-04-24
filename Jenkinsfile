@@ -2,7 +2,7 @@ pipeline {
 agent any
 
     environment{
-        DOCKERHUB_CREDENTIALS = credentialsId(8161c8b2-7328-4cdc-9242-8dd0aaef898d);
+        DOCKERHUB_CREDENTIALS = credentialsId('8161c8b2-7328-4cdc-9242-8dd0aaef898d');
     }
 
     triggers {
