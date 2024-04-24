@@ -5,7 +5,9 @@ services:
     build: ./building
     networks:
       - network
-    image: lab5
+    image: react-hot-cold:latest
+    volumes:
+    - ./artefakty/react-hot-cold/build
   test:
     build: ./test
     networks:
@@ -16,3 +18,4 @@ services:
 networks:
   network:
     driver: bridge
+
