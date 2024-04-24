@@ -23,8 +23,6 @@ agent any
                 docker run --name build_container react-hot-cold:latest
                 docker cp build_container:/react-hot-cold/build ./artefakty
                 docker logs build_container > log_build.txt
-                docker container stop build_container
-                docker container rm build_container
                 '''
             }
         }
@@ -36,8 +34,7 @@ agent any
                 docker build -t react-hot-cold-test:latest -f ./test/Dockerfile .
                 docker run --name test_container react-hot-cold-test:latest
                 docker logs test_container > log_test.txt
-                docker container stop test_container
-                docker container rm test_container
+
                 '''
             }
         }
@@ -68,9 +65,15 @@ agent any
     }
     post{
         always{
-
             echo "Archiving artifacts"
+            '''
             archiveArtifacts artifacts: 'artifact_*.tar.gz', fingerprint: true
+
+            docker container stop build_container
+            docker container rm build_container
+            docker container stop test_container
+            docker container rm test_container
+            '''
         }
     }
     
