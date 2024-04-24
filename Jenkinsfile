@@ -20,8 +20,7 @@ agent any
                 echo "Build stage"
                 sh '''
                 docker build -t react-hot-cold:latest  -f./building/Dockerfile .
-                docker run -v ./artifacts/build:/build -d --rm --name build_container react-hot-cold:latest
-                docker cp build_container:/react-hot-cold/build .
+                docker run -v ./artifacts:/react-hot-cold/build -d --rm --name build_container react-hot-cold:latest
                 '''
             }
         }
