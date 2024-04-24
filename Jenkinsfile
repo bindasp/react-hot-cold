@@ -20,7 +20,7 @@ agent any
                 echo "Build stage"
                 sh '''
                 docker build -t react-hot-cold:latest  -f./building/Dockerfile .
-                docker run -d -v ./artefakty:/build --name build_container react-hot-cold:latest
+                docker run -d -v ./artefakty:/react-hot-cold/build --name build_container react-hot-cold:latest
                 docker logs build_container > log_build.txt
                 docker container stop build_container
                 docker container rm build_container
@@ -54,7 +54,7 @@ agent any
                 echo "Publish stage"
                 sh '''
                 TIMESTAMP=$(date +%Y%m%d%H%M%S)
-                tar -czf artifact_$TIMESTAMP.tar.gz log_build.txt log_test.txt artifacts
+                tar -czf artifact_$TIMESTAMP.tar.gz log_build.txt log_test.txt artefakty
                 
                 docker compose down
                 
