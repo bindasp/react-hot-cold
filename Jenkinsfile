@@ -22,7 +22,6 @@ agent any
                 docker build -t react-hot-cold:latest  -f./building/Dockerfile .
                 docker run -d --name build_container react-hot-cold:latest
                 docker logs build_container > log_build.txt
-                docker exec build_container ls
                 docker container stop build_container
                 docker container rm build_container
                 '''

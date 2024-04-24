@@ -12,3 +12,5 @@ WORKDIR /react-hot-cold
 
 RUN npm i
 RUN npm run build
+
+CMD ls -al
