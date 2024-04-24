@@ -1,4 +1,4 @@
-FROM node as lab5
+FROM node as react-hot-cold
 
 ARG TOKEN
 
