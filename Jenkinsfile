@@ -66,14 +66,14 @@ agent any
     post{
         always{
             echo "Archiving artifacts"
-            
-            archiveArtifacts artifacts: 'artifact_*.tar.gz', fingerprint: true
 
+            archiveArtifacts artifacts: 'artifact_*.tar.gz', fingerprint: true
+            sh '''
             docker container stop build_container
             docker container rm build_container
             docker container stop test_container
             docker container rm test_container
-
+            '''
         }
     }
     
