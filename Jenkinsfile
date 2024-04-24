@@ -21,6 +21,7 @@ agent any
                 sh '''
                 docker build -t react-hot-cold:latest  -f./building/Dockerfile .
                 docker run -v ./artifacts:/react-hot-cold/build -d --rm --name build_container react-hot-cold:latest
+                docker logs react-hot-cold > log_build.txt
                 '''
             }
         }
@@ -31,7 +32,7 @@ agent any
                 sh '''
                 docker build -t react-hot-cold-test:latest -f ./test/Dockerfile .
                 docker compose up test
-                docker compose logs test >> log_test.txt
+                docker compose logs test > log_test.txt
                 '''
             }
         }
