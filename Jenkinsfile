@@ -31,7 +31,7 @@ agent any
                 echo "Test stage"
                 sh '''
                 docker build -t react-hot-cold-test:latest -f ./test/Dockerfile .
-                docker compose test
+                docker compose up test
                 docker compose logs test >> log_test.txt
                 '''
             }
