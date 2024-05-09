@@ -1,8 +1,12 @@
 pipeline {
 agent any
-
+ options {
+        skipDefaultCheckout()
+        skipStagesAfterUnstable()
+    }
     environment{
         DOCKERHUB_CREDENTIALS = credentials('dockerhub')
+        DOCKER_IMAGE_VERSION = '1.0.0'
     }
 
     triggers {
@@ -62,9 +66,9 @@ agent any
                 
                 echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin
                 NUMBER='''+ env.BUILD_NUMBER +'''
-                docker tag react-hot-cold-deploy:latest bindasp/react-hot-cold:1.$DOCKER_IMAGE_VERSION
+                docker tag react-hot-cold-deploy:latest bindasp/react-hot-cold:$DOCKER_IMAGE_VERSION
                 docker tag react-hot-cold-deploy:latest bindasp/react-hot-cold:latest
-                docker push bindasp/react-hot-cold:1.$DOCKER_IMAGE_VERSION
+                docker push bindasp/react-hot-cold:$DOCKER_IMAGE_VERSION
                 docker push bindasp/react-hot-cold:latest
                 docker logout
 
@@ -83,8 +87,13 @@ agent any
             '''
         }
         success{
-            script{
-                env.DOCKER_IMAGE_VERSION = env.DOCKER_IMAGE_VERSION + 1
+            script {
+                def semanticVersioning = [
+                    kind: 'increment',
+                    field: 'PATCH',
+                    preReleaseVersion: 'SNAPSHOT'
+                ]
+                env.DOCKER_IMAGE_VERSION = semanticVersioning.incrementVersion(env.DOCKER_IMAGE_VERSION)
             }
         }
     }
