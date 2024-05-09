@@ -88,8 +88,8 @@ agent any
         success{
         script {
                 sh'''
-                newVersion = semverIncrementBuild();
-                env.DOCKER_IMAGE_VERSION = newVersion
+                newVersion = $(semverIncrementBuild)
+                env.DOCKER_IMAGE_VERSION = $newVersion
                 '''
             }
     }
