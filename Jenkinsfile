@@ -65,7 +65,6 @@ agent any
                 tar -czf artifact_$TIMESTAMP.tar.gz log_build.txt log_test.txt artefakty
                 
                 echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin
-                NUMBER='''+ env.BUILD_NUMBER +'''
                 docker tag react-hot-cold-deploy:latest bindasp/react-hot-cold:$DOCKER_IMAGE_VERSION
                 docker tag react-hot-cold-deploy:latest bindasp/react-hot-cold:latest
                 docker push bindasp/react-hot-cold:$DOCKER_IMAGE_VERSION
@@ -87,16 +86,17 @@ agent any
             '''
         }
         success{
-            script {
-                def semanticVersioning = [
-                    kind: 'increment',
-                    field: 'PATCH',
-                    preReleaseVersion: 'SNAPSHOT'
-                ]
-                env.DOCKER_IMAGE_VERSION = semanticVersioning.incrementVersion(env.DOCKER_IMAGE_VERSION)
+          script {
+                def newVersion = semver.incVersion(
+                    env.DOCKER_IMAGE_VERSION,
+                    "PATCH",
+                    null,
+                    "SNAPSHOT"
+                )
+                env.DOCKER_IMAGE_VERSION = newVersion
             }
-        }
     }
     
 }
 
+}
