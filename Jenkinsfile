@@ -81,6 +81,17 @@ agent any
                 '''
             } 
         }
+            post{
+            always{
+            echo "Archiving artifacts"
+
+            archiveArtifacts artifacts: 'artifact_*.tar.gz', fingerprint: true
+            sh '''
+            chmod +x cleanup.sh
+            ./cleanup.sh
+            '''
+        }
+}
     }
 
 
