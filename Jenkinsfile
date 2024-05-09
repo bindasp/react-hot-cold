@@ -3,7 +3,7 @@ agent any
 
     environment{
         DOCKERHUB_CREDENTIALS = credentials('dockerhub')
-        DOCKER_IMAGE_VERSION = '1.0'
+        DOCKER_IMAGE_VERSION = 1
     }
 
     triggers {
@@ -63,9 +63,9 @@ agent any
                 
                 echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin
                 NUMBER='''+ env.BUILD_NUMBER +'''
-                docker tag react-hot-cold-deploy:latest bindasp/react-hot-cold:$DOCKER_IMAGE_VERSION
+                docker tag react-hot-cold-deploy:latest bindasp/react-hot-cold:1.$DOCKER_IMAGE_VERSION
                 docker tag react-hot-cold-deploy:latest bindasp/react-hot-cold:latest
-                docker push bindasp/react-hot-cold:$DOCKER_IMAGE_VERSION
+                docker push bindasp/react-hot-cold:$1.DOCKER_IMAGE_VERSION
                 docker push bindasp/react-hot-cold:latest
                 docker logout
 
@@ -84,14 +84,9 @@ agent any
             '''
         }
         success{
-            sh '''
-            export VERSION=${DOCKER_IMAGE_VERSION}
-            IFS='.' read -r -a parts <<< "$VERSION"
-            MAJOR="${parts[0]}"
-            MINOR="${parts[1]}"
-            ((MINOR++))
-            DOCKER_IMAGE_VERSION="${MAJOR}.${MINOR}"
-            '''
+            script{
+                env.DOCKER_IMAGE_VERSION = env.DOCKER_IMAGE_VERSION + 1
+            }
         }
     }
     
