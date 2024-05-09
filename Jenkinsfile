@@ -6,7 +6,7 @@ agent any
     }
     environment{
         DOCKERHUB_CREDENTIALS = credentials('dockerhub')
-        NEXT_VERSION = nextVersion(writeVersion: true)
+        NEXT_VERSION = nextVersion()
     }
 
     triggers {
