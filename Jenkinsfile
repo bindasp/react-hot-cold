@@ -65,7 +65,7 @@ agent any
                 NUMBER='''+ env.BUILD_NUMBER +'''
                 docker tag react-hot-cold-deploy:latest bindasp/react-hot-cold:1.$DOCKER_IMAGE_VERSION
                 docker tag react-hot-cold-deploy:latest bindasp/react-hot-cold:latest
-                docker push bindasp/react-hot-cold:$1.DOCKER_IMAGE_VERSION
+                docker push bindasp/react-hot-cold:1.DOCKER_IMAGE_VERSION
                 docker push bindasp/react-hot-cold:latest
                 docker logout
 
