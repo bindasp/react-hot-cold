@@ -1,6 +1,5 @@
 {
   "name": "react-hot-cold-anu",
-  "version": "1.0.0",
   "private": true,
   "dependencies": {
     "react": "^16.8.6",
