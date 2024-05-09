@@ -8,7 +8,7 @@ agent any
     }
     environment{
         DOCKERHUB_CREDENTIALS = credentials('dockerhub')
-        DOCKER_IMAGE_VERSION = '1.0.0'
+        DOCKER_IMAGE_VERSION = nextVersion()
     }
 
     triggers {
@@ -87,14 +87,6 @@ agent any
             ./cleanup.sh
             '''
         }
-        success{
-     script {
-               newVersion = semverIncrementBuild();
-                env.DOCKER_IMAGE_VERSION = newVersion;
-
-            }
-    }
-    
 }
 
 }
