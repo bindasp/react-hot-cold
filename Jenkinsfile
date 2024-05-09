@@ -86,8 +86,8 @@ agent any
             '''
         }
         success{
-         script {
-                def versionParts = env.DOCKER_IMAGE_VERSION.split("\\.")
+        script {
+                def versionParts = env.DOCKER_IMAGE_VERSION.tokenize('.')
                 def major = versionParts[0] as int
                 def minor = versionParts[1] as int
                 def patch = versionParts[2] as int
