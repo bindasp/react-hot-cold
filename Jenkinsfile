@@ -7,6 +7,7 @@ agent any
     environment{
         DOCKERHUB_CREDENTIALS = credentials('dockerhub')
         GITHUB_CREDENTIALS = credentials('github')
+        GITHUB_REPO = 'bindasp/react-hot-cold'
         NEXT_VERSION = nextVersion()
     }
 
@@ -68,8 +69,8 @@ agent any
                 git config --global user.email "bindas.patryk@gmail.com"
                 git config --global user.name "bindasp"
                 git tag -a ${NEXT_VERSION} -m "tag"
-                git push origin ${NEXT_VERSION}
-                
+                git push https://github.com/${GITHUB_CREDENTIALS_PSW}@${GITHUB_REPO} ${NEXT_VERSION}
+
                 echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin
 
                 docker tag react-hot-cold-deploy:latest bindasp/react-hot-cold:${NEXT_VERSION}
