@@ -1,3 +1,5 @@
+@Library('semver') _
+
 pipeline {
 agent any
  options {
@@ -87,10 +89,10 @@ agent any
         }
         success{
      script {
-        def newVersion = semverIncrementBuild version: env.DOCKER_IMAGE_VERSION, releaseType: 'build'
-        echo "New version: $newVersion"
-        env.DOCKER_IMAGE_VERSION = newVersion
-    }
+               newVersion = semverIncrementBuild();
+                env.DOCKER_IMAGE_VERSION = newVersion;
+
+            }
     }
     
 }
