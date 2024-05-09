@@ -86,12 +86,11 @@ agent any
             '''
         }
         success{
-        script {
-                sh'''
-                newVersion = $(semverIncrementBuild)
-                env.DOCKER_IMAGE_VERSION = $newVersion
-                '''
-            }
+     script {
+        def newVersion = semverIncrementBuild version: env.DOCKER_IMAGE_VERSION, releaseType: 'build'
+        echo "New version: $newVersion"
+        env.DOCKER_IMAGE_VERSION = newVersion
+    }
     }
     
 }
