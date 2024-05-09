@@ -87,12 +87,9 @@ agent any
         }
         success{
         script {
-                def versionParts = env.DOCKER_IMAGE_VERSION.tokenize('.')
-                def major = versionParts[0] as int
-                def minor = versionParts[1] as int
-                def patch = versionParts[2] as int
-                patch++
-                env.DOCKER_IMAGE_VERSION = "${major}.${minor}.${patch}"
+                def newVersion = semverIncrementBuild();
+                env.DOCKER_IMAGE_VERSION = newVersion
+                
             }
     }
     
