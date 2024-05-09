@@ -84,17 +84,16 @@ agent any
             '''
         }
         success{
-            def version = DOCKER_IMAGE_VERSION
-           DOCKER_IMAGE_VERSION = incrementVersion(version)
+            sh '''
+            VERSION=$DOCKER_IMAGE_VERSION
+            IFS='.' read -r -a parts <<< "$VERSION"
+            MAJOR="${parts[0]}"
+            MINOR="${parts[1]}"
+            ((PATCH++))
+            DOCKER_IMAGE_VERSION="$MAJOR.$MINOR.$PATCH"
+            '''
         }
     }
     
 }
-def incrementVersion(version) {
-    def parts = version.tokenize('.')
-    def major = parts[0] as int
-    def minor = parts[1] as int
-    def patch = parts[2] as int
-    patch++
-    return "${major}.${minor}.${patch}"
-}
+
