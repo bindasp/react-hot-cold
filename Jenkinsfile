@@ -85,12 +85,12 @@ agent any
         }
         success{
             sh '''
-            export VERSION=$DOCKER_IMAGE_VERSION
+            exportVERSION=${DOCKER_IMAGE_VERSION}
             IFS='.' read -r -a parts <<< "$VERSION"
             MAJOR="${parts[0]}"
             MINOR="${parts[1]}"
             ((MINOR++))
-            DOCKER_IMAGE_VERSION="$MAJOR.$MINOR"
+            DOCKER_IMAGE_VERSION="${MAJOR}.${MINOR}"
             '''
         }
     }
