@@ -1,5 +1,3 @@
-@Library('semver') _
-
 pipeline {
 agent any
  options {
