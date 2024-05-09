@@ -87,9 +87,10 @@ agent any
         }
         success{
         script {
-                def newVersion = semverIncrementBuild();
+                sh'''
+                newVersion = semverIncrementBuild();
                 env.DOCKER_IMAGE_VERSION = newVersion
-                
+                '''
             }
     }
     
