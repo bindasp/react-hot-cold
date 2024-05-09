@@ -89,8 +89,8 @@ agent any
             IFS='.' read -r -a parts <<< "$VERSION"
             MAJOR="${parts[0]}"
             MINOR="${parts[1]}"
-            ((PATCH++))
-            DOCKER_IMAGE_VERSION="$MAJOR.$MINOR.$PATCH"
+            ((MINOR++))
+            DOCKER_IMAGE_VERSION="$MAJOR.$MINOR"
             '''
         }
     }
