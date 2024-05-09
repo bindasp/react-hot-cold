@@ -1,3 +1,12 @@
+def incrementVersion(version) {
+    def parts = version.tokenize('.')
+    def major = parts[0] as int
+    def minor = parts[1] as int
+    def patch = parts[2] as int
+    patch++
+    return "${major}.${minor}.${patch}"
+}
+
 pipeline {
 agent any
 
@@ -88,13 +97,4 @@ agent any
         }
     }
     
-}
-
-def incrementVersion(version) {
-    def parts = version.tokenize('.')
-    def major = parts[0] as int
-    def minor = parts[1] as int
-    def patch = parts[2] as int
-    patch++
-    return "${major}.${minor}.${patch}"
 }
