@@ -86,14 +86,13 @@ agent any
             '''
         }
         success{
-          script {
-                def newVersion = semver.incVersion(
-                    env.DOCKER_IMAGE_VERSION,
-                    "PATCH",
-                    null,
-                    "SNAPSHOT"
-                )
-                env.DOCKER_IMAGE_VERSION = newVersion
+         script {
+                def versionParts = env.DOCKER_IMAGE_VERSION.split("\\.")
+                def major = versionParts[0] as int
+                def minor = versionParts[1] as int
+                def patch = versionParts[2] as int
+                patch++
+                env.DOCKER_IMAGE_VERSION = "${major}.${minor}.${patch}"
             }
     }
     
