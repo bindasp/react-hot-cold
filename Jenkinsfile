@@ -3,6 +3,7 @@ agent any
 
     environment{
         DOCKERHUB_CREDENTIALS = credentials('dockerhub')
+        DOCKER_IMAGE_VERSION = '1.0'
     }
 
     triggers {
@@ -62,9 +63,9 @@ agent any
                 
                 echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin
                 NUMBER='''+ env.BUILD_NUMBER +'''
-                docker tag react-hot-cold-deploy:latest bindasp/react-hot-cold:$NUMBER
+                docker tag react-hot-cold-deploy:latest bindasp/react-hot-cold:$DOCKER_IMAGE_VERSION
                 docker tag react-hot-cold-deploy:latest bindasp/react-hot-cold:latest
-                docker push bindasp/react-hot-cold:$NUMBER
+                docker push bindasp/react-hot-cold:$DOCKER_IMAGE_VERSION
                 docker push bindasp/react-hot-cold:latest
                 docker logout
 
@@ -82,6 +83,18 @@ agent any
             ./cleanup.sh
             '''
         }
+        success{
+           DOCKER_IMAGE_VERSION = incrementVersion(DOCKER_IMAGE_VERSION)
+        }
     }
     
+}
+
+def incrementVersion(version) {
+    def parts = version.tokenize('.')
+    def major = parts[0] as int
+    def minor = parts[1] as int
+    def patch = parts[2] as int
+    patch++
+    return "${major}.${minor}.${patch}"
 }
