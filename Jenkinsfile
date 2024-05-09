@@ -65,12 +65,13 @@ agent any
                 sh '''
                 TIMESTAMP=$(date +%Y%m%d%H%M%S)
                 tar -czf artifact_$TIMESTAMP.tar.gz log_build.txt log_test.txt artefakty
-                
-                echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin
                 git config --global user.email "bindas.patryk@gmail.com"
                 git config --global user.name "bindasp"
                 git tag -a ${NEXT_VERSION} -m "tag"
                 git push origin ${NEXT_VERSION}
+                
+                echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin
+
                 docker tag react-hot-cold-deploy:latest bindasp/react-hot-cold:${NEXT_VERSION}
                 docker tag react-hot-cold-deploy:latest bindasp/react-hot-cold:latest
                 docker push bindasp/react-hot-cold:${NEXT_VERSION}
