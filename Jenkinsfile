@@ -1,9 +1,6 @@
 pipeline {
 agent any
- options {
-        skipDefaultCheckout()
-        skipStagesAfterUnstable()
-    }
+
     environment{
         DOCKERHUB_CREDENTIALS = credentials('dockerhub')
         GITHUB_CREDENTIALS = credentials('github')
