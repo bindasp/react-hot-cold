@@ -3,7 +3,6 @@ agent any
 
     environment{
         DOCKERHUB_CREDENTIALS = credentials('dockerhub')
-        DOCKER_IMAGE_VERSION = "${currentBuild.getEnvVars().getOrDefault('DOCKER_IMAGE_VERSION', 1)}"
     }
 
     triggers {
@@ -85,7 +84,7 @@ agent any
         }
         success{
             script{
-               env.DOCKER_IMAGE_VERSION = env.DOCKER_IMAGE_VERSION.toInteger() + 1
+                env.DOCKER_IMAGE_VERSION = env.DOCKER_IMAGE_VERSION + 1
             }
         }
     }
