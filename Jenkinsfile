@@ -1,12 +1,3 @@
-def incrementVersion(version) {
-    def parts = version.tokenize('.')
-    def major = parts[0] as int
-    def minor = parts[1] as int
-    def patch = parts[2] as int
-    patch++
-    return "${major}.${minor}.${patch}"
-}
-
 pipeline {
 agent any
 
@@ -93,8 +84,17 @@ agent any
             '''
         }
         success{
-           DOCKER_IMAGE_VERSION = incrementVersion(DOCKER_IMAGE_VERSION)
+            def version = DOCKER_IMAGE_VERSION
+           DOCKER_IMAGE_VERSION = incrementVersion(version)
         }
     }
     
+}
+def incrementVersion(version) {
+    def parts = version.tokenize('.')
+    def major = parts[0] as int
+    def minor = parts[1] as int
+    def patch = parts[2] as int
+    patch++
+    return "${major}.${minor}.${patch}"
 }
