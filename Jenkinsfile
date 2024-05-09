@@ -81,7 +81,9 @@ agent any
                 '''
             } 
         }
-            post{
+
+    }
+                post{
             always{
             echo "Archiving artifacts"
 
@@ -92,7 +94,6 @@ agent any
             '''
         }
 }
-    }
 
 
 }
