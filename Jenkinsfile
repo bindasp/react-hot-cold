@@ -6,7 +6,7 @@ agent any
     }
     environment{
         DOCKERHUB_CREDENTIALS = credentials('dockerhub')
-        DOCKER_IMAGE_VERSION = nextVersion()
+        DOCKER_IMAGE_VERSION = nextVersion(writeVersion: true)
     }
 
     triggers {
@@ -70,6 +70,8 @@ agent any
                 docker push bindasp/react-hot-cold:$DOCKER_IMAGE_VERSION
                 docker push bindasp/react-hot-cold:latest
                 docker logout
+
+                echo
 
                 '''
             } 
