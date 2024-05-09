@@ -26,7 +26,6 @@ agent any
             steps {
                 echo "Build stage"
                 sh '''
-                echo "next version = ${NEXT_VERSION}"
                 docker build -t react-hot-cold:latest  -f./building/Dockerfile .
                 docker run --name build_container react-hot-cold:latest
                 docker cp build_container:/react-hot-cold/build ./artefakty
@@ -66,7 +65,7 @@ agent any
                 git config --global user.email "bindas.patryk@gmail.com"
                 git config --global user.name "bindasp"
                 git tag -a ${NEXT_VERSION} -m "tag"
-                git push https://${GITHUB_CREDENTIALS_PSW}@/github.com/${GITHUB_REPO} ${NEXT_VERSION}
+                git push https://${GITHUB_CREDENTIALS_PSW}@github.com/${GITHUB_REPO} ${NEXT_VERSION}
 
                 echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin
 
