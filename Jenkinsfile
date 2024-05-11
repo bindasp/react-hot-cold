@@ -52,9 +52,13 @@ agent { label 'kubepod'}
                 
                 docker build -t react-hot-cold-deploy:latest -f ./deploy/Dockerfile .
                 docker run -p 3000:3000 -d --rm --name deploy_container react-hot-cold-deploy:latest
+                
                 '''
-                script {
-                    kubernetesDeploy(configs: "deployment.yaml", kubeconfigId: "mykubeconfig")
+                withCredentials([
+                    string(credentialsId: 'my_kubernetes', variable: 'api_token')
+                ]) {
+                    sh 'kubectl --token $api_token --server https://192.168.49.2:8443 ----insecure-skip-tls-verify=true apply -f deployment.yaml'
+'
                 }
             }
         }
