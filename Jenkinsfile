@@ -1,5 +1,5 @@
 pipeline {
-agent any
+agent { label 'kubepod'}
 
     environment{
         DOCKERHUB_CREDENTIALS = credentials('dockerhub')
@@ -53,6 +53,9 @@ agent any
                 docker build -t react-hot-cold-deploy:latest -f ./deploy/Dockerfile .
                 docker run -p 3000:3000 -d --rm --name deploy_container react-hot-cold-deploy:latest
                 '''
+                script {
+                    kubernetesDeploy(configs: "deployment.yaml", kubeconfigId: "mykubeconfig")
+                }
             }
         }
 

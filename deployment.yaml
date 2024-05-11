@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: react-hot-cold
+  labels:
+    app: react
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: react
+  template:
+    metadata:
+      labels:
+        app: react
+    spec:
+      containers:
+      - name: react
+        image: bindasp/react-hot-cold:2.2.4    
+        ports:
+        - containerPort: 3000
