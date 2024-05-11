@@ -55,6 +55,7 @@ agent any
                 
                 '''
         }
+        }
 
         stage('Publish') {
             steps {
