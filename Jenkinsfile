@@ -70,7 +70,9 @@ agent any
                 echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin
 
                 docker tag react-hot-cold-deploy:latest bindasp/react-hot-cold:${NEXT_VERSION}
+                docker tag react-hot-cold-deploy:latest bindasp/react-hot-cold:latest
                 docker push bindasp/react-hot-cold:${NEXT_VERSION}
+                docker push bindasp/react-hot-cold:latest
                 docker logout
 
                 echo
