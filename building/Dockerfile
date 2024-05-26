@@ -8,6 +8,7 @@ RUN apt-get install -y git
 
 WORKDIR /react-hot-cold
 
+COPY . .
 
 RUN npm i
 RUN npm run build
